@@ -24,3 +24,7 @@ media/
 # IDEs
 .vscode/
 .idea/
+
+.vercel
+.env*.local
+staticfiles/

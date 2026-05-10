@@ -28,7 +28,7 @@ SECRET_KEY = 'django-insecure-u=vnwl_b9pue-k8ug!v#*77x1r$1s4on+nr@(-0kr^@ixf+43n
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['.vercel.app', 'now.sh', '127.0.0.1', 'localhost', '.render.com']
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -84,10 +84,11 @@ DATABASES = {
     }
 }
 
-# Use PostgreSQL in production if DATABASE_URL is set
-if os.environ.get('DATABASE_URL'):
+# Use PostgreSQL in production if DATABASE_URL or POSTGRES_URL is set
+db_url = os.environ.get('DATABASE_URL') or os.environ.get('POSTGRES_URL')
+if db_url:
     DATABASES['default'] = dj_database_url.config(
-        default=os.environ.get('DATABASE_URL'),
+        default=db_url,
         conn_max_age=600,
         conn_health_checks=True,
     )
@@ -131,7 +132,7 @@ STATIC_URL = 'static/'
 STATICFILES_DIRS = [BASE_DIR / 'static']
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedStaticFilesStorage'
 
 AUTH_USER_MODEL = 'core.User'
 
