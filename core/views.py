@@ -459,7 +459,7 @@ def manage_payments(request):
                     tenant=tenant, 
                     amount=amount, 
                     status='Paid', 
-                    payment_method='Admin Record',
+                    payment_method='Cash',
                     month=date.today()
                 )
                 messages.success(request, f"Payment of ₹{amount} noted for {tenant.username}.")
